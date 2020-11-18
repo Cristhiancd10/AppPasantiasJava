@@ -52,7 +52,22 @@ public class Servicios {
 	@Inject
 	private ClienteON clion;
 	
-
+	@GET
+	@Path("/actualizarvisita")
+	@Produces("application/json")
+	public Response actualizar(@QueryParam("id") int id) {
+		System.out.println("Actualizar.......");
+		Response.ResponseBuilder builder = null;
+		builder = Response.status(Response.Status.OK).entity("Actulizado");
+		try {
+			regon.actualizar(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			builder = Response.status(Response.Status.BAD_REQUEST).entity("Error");
+			
+		}
+		return builder.build();
+	}
 	
 	/**
 	 * Metodo del login
@@ -63,7 +78,6 @@ public class Servicios {
 	@POST
 	@Path("/login")
 	@Produces("application/json")
-	@Consumes("application/json")
 	public Empleadotmp login(Empleadotmp empleado) {
 		Empleado use = new Empleado();
 		Empleadotmp u = new Empleadotmp();

@@ -32,7 +32,14 @@ public class RegistroDAO {
 	
 	public void update(Registro reg) {
 		em.merge(reg);
-		
+	}
+	
+	public int update(int id) {
+		String jpql = "update Registro registro set registro.realizado = true where registro.id =: id";
+		Query q = em.createQuery(jpql, Registro.class);
+		q.setParameter("id", id);
+		int r = q.executeUpdate();
+		return r;
 	}
 	
 	public Registro read(int id) {
